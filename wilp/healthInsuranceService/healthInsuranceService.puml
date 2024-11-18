@@ -1,0 +1,47 @@
+@startuml
+class InsurancePolicy {
+  - policyNumber: String
+  - provider: String
+  - startDate: Date
+  - endDate: Date
+  - coverageAmount: Double
+  - policyHolder: User
+  + uploadPolicyDocument(): void
+  + viewPolicyDetails(): void
+  + renewPolicy(): void
+}
+
+class InsuranceClaim {
+  - claimId: String
+  - claimAmount: Double
+  - claimStatus: String
+  - claimDate: Date
+  - user: User
+  + submitClaim(): void
+  + trackClaimStatus(): String
+  + approveClaim(): void
+  + rejectClaim(): void
+}
+
+class User {
+  - userId: String
+  - name: String
+  - email: String
+  - phoneNumber: String
+  - insurancePolicies: List<InsurancePolicy>
+  + createAccount(): void
+  + updatePersonalInfo(): void
+  + viewInsuranceDetails(): void
+}
+
+class ClaimStatusNotification {
+  - notificationId: String
+  - claimId: String
+  - status: String
+  + sendNotification(): void
+}
+
+User "1" --> "*" InsurancePolicy : owns
+InsurancePolicy "1" --> "*" InsuranceClaim : has
+InsuranceClaim "*" --> "1" ClaimStatusNotification : generates
+@enduml

@@ -1,0 +1,47 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' Define classes
+class NotificationManager {
+    + notificationID: String
+    + userID: String
+    + notificationType: String
+    + content: String
+    + timestamp: DateTime
+    + status: String
+    --
+    + createNotification(userID, notificationType, content)
+    + scheduleNotification(notificationID, timestamp)
+    + sendNotification(notificationID)
+    + updateNotificationStatus(notificationID, newStatus)
+    + deleteNotification(notificationID)
+}
+
+class ChannelDispatcher {
+    + channelType: String
+    + configurations: Object
+    --
+    + dispatch(notification: Notification, channelType)
+    + getChannelConfig(channelType)
+    + updateChannelConfig(channelType, configurations)
+    + retryFailedDispatch(notificationID, channelType)
+}
+
+class AppointmentReminder {
+    + appointmentID: String
+    + userID: String
+    + appointmentDate: DateTime
+    + reminderSent: Boolean
+    --
+    + createAppointmentReminder(userID, appointmentID, appointmentDate)
+    + sendAppointmentReminder(appointmentID)
+    + updateReminderStatus(appointmentID, status)
+    + getPendingReminders()
+}
+
+' Define relationships
+NotificationManager "1" --> "0..*" ChannelDispatcher : sends through
+NotificationManager "1" --> "0..*" AppointmentReminder : schedules
+
+
+@enduml

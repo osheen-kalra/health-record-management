@@ -1,0 +1,103 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' Define classes
+class PatientRecord {
+    + patientID: String
+    + personalDetails: Object
+    + medicalHistory: List
+    + allergyInfo: List
+    + visitHistory: List
+    + languagePreference: String
+    --
+    + updateMedicalHistory()
+    + addAllergyInfo()
+    + getMedicalHistory()
+    + translateRecord()
+}
+
+class DocumentDetails {
+    + documentID: String
+    + documentType: String
+    + patientID: String
+    + dateUploaded: Date
+    --
+    + displayDocumentDetails()
+}
+
+class Prescription {
+    + prescriptionID: String
+    + doctorName: String
+    + diagnosis: String
+    + prescriptionItems: List<PrescriptionItem>
+    --
+    + displayDocumentDetails() : void
+}
+
+class PrescriptionItem {
+    + medicationName: String
+    + dosage: String
+    + instructions: String
+    --
+}
+
+class Document {
+    + documentID: String
+    + documentType: String
+    + patientID: String
+    + dateUploaded: Date
+    + filePath: String
+    + versionNumber: Integer
+    --
+    + uploadDocument()
+    + retrieveDocument()
+    + deleteDocument()
+    + getVersionHistory()
+}
+
+class DiagnosticTest {
+    + testID: String
+    + patientID: String
+    + testType: String
+    + scheduledDate: Date
+    + status: String
+    + results: Object
+    --
+    + scheduleTest()
+    + updateTestStatus()
+    + addTestResults()
+    + getTestResults()
+}
+
+class VersionControl {
+    + documentID: String
+    + versionNumber: Integer
+    + timestamp: DateTime
+    + changedBy: String
+    + changeDescription: String
+    --
+    + createVersion()
+    + revertVersion()
+    + getVersionDetails()
+}
+
+class BackupManager {
+    + backupID: String
+    + backupDate: Date
+    + backupStatus: String
+    + backupLocation: String
+    --
+    + initiateBackup()
+    + restoreBackup()
+    + getBackupStatus()
+}
+
+' Define relationships
+PatientRecord "1" --> "0..*" Document : contains
+PatientRecord "1" --> "0..*" DiagnosticTest : manages
+Document "1" --> "1" VersionControl : version control
+Document "0..*" o-- "1" BackupManager : backup
+Document "1" <|-- "1" Prescription : is a
+Prescription "1" --> "0..*" PrescriptionItem : contains
+
+@enduml

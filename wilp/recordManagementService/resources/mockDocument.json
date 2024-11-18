@@ -1,0 +1,27 @@
+{
+  "documentID": "12345",
+  "documentType": "Prescription",
+  "patientID": "67890",
+  "dateUploaded": "2023-10-01T12:00:00Z",
+  "filePath": "/path/to/document.pdf",
+  "versionNumber": 1,
+  "documentDetails": {
+    "prescriptionID": "presc-001",
+    "doctorName": "Dr. John Doe",
+    "diagnosis": "Flu",
+    "prescriptionItems": [
+      {
+        "medicationName": "Medicine A",
+        "dosage": "500mg",
+        "instructions": "Take one tablet daily",
+        "frequency": "DAILY"
+      },
+      {
+        "medicationName": "Medicine B",
+        "dosage": "250mg",
+        "instructions": "Take one tablet twice daily",
+        "frequency": "TWICE_DAILY"
+      }
+    ]
+  }
+}

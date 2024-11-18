@@ -1,0 +1,45 @@
+@startuml
+class Authentication {
+  - userId: String
+  - biometricData: String
+  + authenticateUser(): Boolean
+  + enableBiometricAuth(): Boolean
+}
+
+class DataEncryption {
+  - dataId: String
+  - encryptionKey: String
+  + encryptData(): String
+  + decryptData(): String
+}
+
+class ConsentManagement {
+  - consentId: String
+  - patientId: String
+  - providerId: String
+  - consentStatus: Boolean
+  + grantConsent(): Boolean
+  + revokeConsent(): Boolean
+}
+
+class SecurityAudit {
+  - auditId: String
+  - accessDetails: String
+  - auditTimestamp: Date
+  + performAudit(): Boolean
+  + generateAlert(): String
+}
+
+class DataAnonymization {
+  - patientDataId: String
+  - anonymizedData: String
+  + anonymizeData(): String
+}
+
+Authentication --> DataEncryption: Secures data access
+Authentication --> SecurityAudit: Triggers audit on failed login
+SecurityAudit --> ConsentManagement: Tracks consent-related activities
+SecurityAudit --> DataAnonymization: Tracks anonymization requests
+DataAnonymization --> ConsentManagement: Anonymizes data with consent
+
+@enduml

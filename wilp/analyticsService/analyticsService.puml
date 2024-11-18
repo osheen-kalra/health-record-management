@@ -1,0 +1,44 @@
+@startuml
+class HealthTrendAnalysis {
+  - patientId: String
+  - dateRange: String
+  - trendType: String
+  - trendData: List<Double>
+  + analyzeHealthTrends(): void
+  + visualizeTrends(): void
+}
+
+class UtilizationReport {
+  - reportId: String
+  - reportDate: Date
+  - hospitalId: String
+  - patientDemographics: Map<String, String>
+  + generateUtilizationReport(): void
+}
+
+class OutcomeAnalysis {
+  - treatmentId: String
+  - treatmentOutcome: String
+  - successRate: Double
+  + analyzeTreatmentOutcome(): void
+}
+
+class ComplianceReport {
+  - reportId: String
+  - complianceStatus: String
+  - legalStandards: List<String>
+  + generateComplianceReport(): void
+}
+
+class PredictiveHealthTrend {
+  - predictionId: String
+  - forecastedTrend: String
+  - probability: Double
+  + predictHealthTrend(): void
+}
+
+HealthTrendAnalysis "1" --> "*" UtilizationReport : generates
+HealthTrendAnalysis "1" --> "*" OutcomeAnalysis : influences
+UtilizationReport "1" --> "*" ComplianceReport : informs
+PredictiveHealthTrend "1" --> "*" HealthTrendAnalysis : enhances
+@enduml

@@ -1,0 +1,66 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' Define classes
+class StaffRoleManagement {
+    + staffID: String
+    + name: String
+    + role: String
+    + permissions: List
+    --
+    + assignRole(staffID, role, permissions)
+    + getRolePermissions(staffID)
+    + updateRole(staffID, newRole)
+    + removeRole(staffID)
+}
+
+class Resource {
+    + resourceID: String
+    + resourceType: String
+    + location: String
+    + status: String
+    --
+    + getResourceDetails()
+    + updateResourceStatus(newStatus)
+}
+
+class ResourceScheduler {
+    + schedule: List
+    --
+    + scheduleResource(resource: Resource, startTime, endTime)
+    + getResourceAvailability(resourceID)
+    + updateResourceSchedule(resourceID, newSchedule)
+    + cancelResourceBooking(resourceID)
+}
+
+class PatientRegistration {
+    + patientID: String
+    + personalDetails: Object
+    + admissionDate: DateTime
+    + dischargeDate: DateTime
+    + documents: List
+    --
+    + registerPatient(personalDetails, documents)
+    + admitPatient(patientID)
+    + dischargePatient(patientID)
+    + getPatientStatus(patientID)
+}
+
+class ClinicalDecisionSupport {
+    + patientID: String
+    + medications: List
+    + allergyInfo: List
+    + alerts: List
+    --
+    + generateAlerts(patientID)
+    + checkDrugInteraction(medicationList)
+    + getClinicalRecommendations(patientID)
+    + getAlertHistory(patientID)
+}
+
+' Define relationships
+StaffRoleManagement "1" --> "0..*" Resource : manages
+ResourceScheduler "1" --> "0..*" Resource : schedules
+PatientRegistration "1" --> "0..*" ClinicalDecisionSupport : uses
+
+@enduml

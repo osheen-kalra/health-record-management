@@ -1,0 +1,44 @@
+@startuml
+class Symptom {
+  - symptomId: String
+  - symptomDescription: String
+  - severity: String
+  + analyzeSymptom(): String
+}
+
+class PredictionModel {
+  - userId: String
+  - historicalData: String
+  - healthRiskPrediction: String
+  + generatePrediction(): String
+}
+
+class Recommendation {
+  - userId: String
+  - recommendedExercise: String
+  - recommendedDiet: String
+  - medicationAdherenceTips: String
+  + provideRecommendations(): String
+}
+
+class Image {
+  - imageId: String
+  - imageType: String
+  - imagePath: String
+  + analyzeImage(): String
+}
+
+class NLPProcessor {
+  - documentId: String
+  - documentContent: String
+  - extractedData: String
+  + processDocument(): String
+}
+
+Symptom --> PredictionModel: Uses
+Symptom --> Recommendation: Provides symptom input
+PredictionModel --> Recommendation: Provides user health data
+Image --> Recommendation: Provides medical insights
+NLPProcessor --> Recommendation: Extracts and provides data
+
+@enduml

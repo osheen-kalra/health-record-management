@@ -1,0 +1,55 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' Define classes
+class UserProfile {
+    + userID: String
+    + personalDetails: Object
+    + medicalHistory: List
+    + emergencyContacts: List
+    + insuranceDetails: Object
+    --
+    + createProfile()
+    + updateProfile()
+    + getProfile()
+    + deleteProfile()
+}
+
+class UserPreferences {
+    + userID: String
+    + preferredLanguage: String
+    + notificationSettings: Object
+    + privacySettings: Object
+    --
+    + setPreferences()
+    + getPreferences()
+    + updatePreferences()
+}
+
+class AccessibilityFeatures {
+    + userID: String
+    + textSize: String
+    + voiceCommandsEnabled: Boolean
+    + simplifiedMode: Boolean
+    --
+    + enableAccessibilityFeature()
+    + disableAccessibilityFeature()
+    + getAccessibilitySettings()
+}
+
+class FamilyAccountManager {
+    + userID: String
+    + dependentAccounts: List
+    --
+    + addDependent()
+    + removeDependent()
+    + getDependentProfiles()
+    + updateDependentProfile()
+}
+
+' Define relationships
+UserProfile "1" --> "1" UserPreferences : customizes
+UserProfile "1" --> "1" AccessibilityFeatures : uses
+UserProfile "1" --> "0..*" FamilyAccountManager : manages
+
+@enduml

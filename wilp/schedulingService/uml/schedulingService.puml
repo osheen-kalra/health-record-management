@@ -1,0 +1,51 @@
+@startuml
+
+class Appointment {
+  - appointmentId: String
+  - patientId: String
+  - providerId: String
+  - date: Date
+  - time: Time
+  - status: String
+  - recurring: Boolean
+  + scheduleAppointment(): void
+  + cancelAppointment(): void
+}
+
+class Patient {
+  - patientId: String
+  - name: String
+  - contactInfo: String
+  + viewAppointment(): Appointment
+  + cancelAppointment(): void
+}
+
+class HealthcareProvider {
+  - providerId: String
+  - name: String
+  - specialization: String
+  - availability: List<DateTime>
+  + viewScheduledAppointments(): List<Appointment>
+}
+
+class Waitlist {
+  - waitlistId: String
+  - patientId: String
+  - appointmentDate: Date
+  - status: String
+  + addToWaitlist(): void
+  + notifyPatient(): void
+}
+
+class CalendarIntegration {
+  - calendarId: String
+  - syncStatus: Boolean
+  + syncAppointments(): void
+}
+
+Appointment "1" *-- "1" Patient
+Appointment "1" *-- "1" HealthcareProvider
+Waitlist "1" *-- "1" Patient
+CalendarIntegration "1" *-- "1" Patient
+
+@enduml
